@@ -10,7 +10,7 @@ import {
     setBaseWebViewHTML,
     extensionToWebWiewMessage,
 } from './webview/webview';
-import { isCodeforcesUrl, randomId } from './utils';
+import { isBaekJoonUrl, isCodeforcesUrl, randomId } from './utils';
 import {
     getDefaultLangPref,
     getLanguageId,
@@ -80,6 +80,8 @@ export const setupCompanionServer = () => {
 export const getProblemFileName = (problem: Problem, ext: string) => {
     if (isCodeforcesUrl(new URL(problem.url)) && useShortCodeForcesName()) {
         return `${getProblemName(problem.url)}.${ext}`;
+    } else if (isBaekJoonUrl(new URL(problem.url))) {
+        return `${problem.url.split('/').pop()}.${ext}`;
     } else {
         console.log(
             isCodeforcesUrl(new URL(problem.url)),

@@ -1,6 +1,6 @@
 import { spawn } from 'child_process';
 import { platform } from 'os';
-import path from 'path';
+import path, { basename } from 'path';
 import { Url } from 'url';
 import * as vscode from 'vscode';
 
@@ -12,7 +12,7 @@ import {
     getPythonArgsPref,
     getRustArgsPref,
 } from './preferences';
-import { Language } from './types';
+import { Language, Problem } from './types';
 
 const oc = vscode.window.createOutputChannel('cph');
 
@@ -78,6 +78,10 @@ export const isValidLanguage = (srcPath: string): boolean => {
 export const isCodeforcesUrl = (url: URL): boolean => {
     return url.hostname === 'codeforces.com';
 };
+
+export const isBaekJoonUrl = (url: URL): boolean => {
+    return url.hostname === 'www.acmicpc.net';
+}
 
 export const ocAppend = (string: string) => {
     oc.append(string);
